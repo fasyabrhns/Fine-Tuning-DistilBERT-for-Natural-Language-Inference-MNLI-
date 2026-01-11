@@ -1,33 +1,53 @@
-MUhammad Farhan 
+# Fine-tuning DistilBERT for Natural Language Inference
 
-Fasya Burhanis Syauqi
+## 👥 Team Information
 
-#  MultiNLI: Natural Language Inference (NLI)
+**Course:** Deep Learning  
+**Institution:** Telkom University  
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
-![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-orange)
-![HuggingFace](https://img.shields.io/badge/Transformers-4.30%2B-yellow)
-![Task](https://img.shields.io/badge/Task-Sentence--Pair-green)
+| Name | NIM |
+| :--- | :--- |
+| **Fasya Burhanis Syauqi** | 1103223054 |
+| **Muhammad Muhammad Farhan** | 11032320187 |
 
-Proyek ini berfokus pada tugas **Natural Language Inference (NLI)**, di mana model harus menentukan hubungan logika antara dua kalimat: *Premise* (Premis) dan *Hypothesis* (Hipotesis).
+---
 
-Model **DistilBERT** dilatih untuk memahami konteks semantik antar kalimat tersebut.
+## 🎯 Purpose
 
-##  Tentang Dataset
-Dataset yang digunakan adalah **GLUE - MNLI** (Multi-Genre NLI). Dataset ini menguji kemampuan model dalam memahami implikasi, kontradiksi, atau kenetralan.
+This repository contains the implementation of **Task 3: Natural Language Inference (NLI)**.
 
-| Label | Arti | Deskripsi |
-|-------|------|-----------|
-| **0** | ✅ Entailment | Hipotesis **benar** berdasarkan premis. |
-| **1** | 😐 Neutral | Hipotesis **tidak berhubungan** langsung dengan premis. |
-| **2** | ❌ Contradiction | Hipotesis **bertentangan** dengan premis. |
+The objective is to fine-tune a pre-trained **DistilBERT** model to perform sentence pair classification. Given a *Premise* and a *Hypothesis*, the model determines the logical relationship between them.
 
-##  Struktur Proyek
-```text
-project_multinli/
-├── notebooks/
-│   └── Task3_MultiNLI.ipynb     # Notebook Training Sentence Pair
-├── reports/
-│   └── report.md                # Laporan Evaluasi
-├── requirements.txt             # Dependencies
-└── README.md                    # Dokumentasi
+## 🔍 Project Overview
+
+### The Task: Sentence Pair Classification
+We utilize the **MultiNLI (MNLI)** dataset from the GLUE benchmark. The task is to classify the relationship between two sentences into one of three categories.
+
+### The Model: DistilBERT Base Uncased
+* **Architecture:** Distilled version of BERT (Transformer Encoder).
+* **Approach:** The input is formatted as `[CLS] Premise [SEP] Hypothesis [SEP]`. The model learns to predict the relationship based on the `[CLS]` embedding.
+
+### The Dataset: MultiNLI (GLUE)
+* **Input:** Pair of sentences (Premise and Hypothesis).
+* **Output:** Logical relationship:
+  * 0: Entailment (True)
+  * 1: Neutral (Unrelated)
+  * 2: Contradiction (False)
+
+---
+
+## 📊 Technical Approach
+
+### Model Configuration
+* **Base Model:** `distilbert-base-uncased`
+* **Tokenizer:** DistilBertTokenizer
+* **Framework:** PyTorch & Hugging Face Transformers
+
+### Training Configuration
+* **Batch Size:** 32
+* **Learning Rate:** 2e-5
+* **Epochs:** 3
+* **Optimizer:** AdamW
+
+### Results
+The model achieved an accuracy of approximately **65.5%** on the matched validation set (trained on a data subset).
